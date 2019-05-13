@@ -5,7 +5,8 @@ import { TodoHomeComponent } from './todo/todo-home/todo-home.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'todo', component: TodoHomeComponent }
+  { path: 'todo', component: TodoHomeComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
 
 @NgModule({

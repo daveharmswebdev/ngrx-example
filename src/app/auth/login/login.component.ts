@@ -3,8 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AppState } from 'src/app/reducers';
 import { Store, select } from '@ngrx/store';
 import { LoginAttempt } from '../store/actions/auth.actions';
-import { selectLoggedIn } from '../store/auth.selectors';
-import { Subscription } from 'rxjs';
+import { selectLoggedIn, selectAttemptingLogin } from '../store/auth.selectors';
+import { Subscription, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   public loginForm: FormGroup;
+  public attemptingLogin$: Observable<boolean>;
   public loggedIn$: Subscription;
 
   constructor(
@@ -25,7 +26,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
-
+    this.attemptingLogin$ = this.store.pipe(select(selectAttemptingLogin));
     this.loggedIn$ = this.store.pipe(select(selectLoggedIn)).subscribe(
       loggedIn => {
         if (loggedIn) {
