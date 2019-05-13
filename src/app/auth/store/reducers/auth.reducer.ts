@@ -1,6 +1,6 @@
 import { AuthActions, AuthActionTypes } from '../actions/auth.actions';
 
-export interface AuthState {
+export interface IAuthState {
   attemptingLogin: boolean;
   token: string;
   nameid: string;
@@ -8,7 +8,7 @@ export interface AuthState {
   loggedIn: boolean;
 }
 
-export const initialAuthState: AuthState = {
+export const initialAuthState: IAuthState = {
   attemptingLogin: false,
   token: '',
   nameid: '',
@@ -19,7 +19,7 @@ export const initialAuthState: AuthState = {
 export function authReducer(
   state = initialAuthState,
   action: AuthActions
-): AuthState {
+): IAuthState {
   switch (action.type) {
     case AuthActionTypes.LoginAttempt: {
       return {
@@ -49,3 +49,9 @@ export function authReducer(
       return state;
   }
 }
+
+export const getAttemptingLogin = (state: IAuthState) => state.attemptingLogin;
+export const getToken = (state: IAuthState) => state.token;
+export const getNameId = (state: IAuthState) => state.nameid;
+export const getUniqueName = (state: IAuthState) => state.unique_name;
+export const getLoggedIn = (state: IAuthState) => state.loggedIn;
