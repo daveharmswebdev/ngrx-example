@@ -4,7 +4,8 @@ import { ILoginCredential } from '../auth.models';
 export enum AuthActionTypes {
   LoginAttempt = '[Login Component] Login',
   LoginSuccess = '[Login Effects] Login Success',
-  LoginFailure = '[Login Effects] Login Failure'
+  LoginFailure = '[Login Effects] Login Failure',
+  LogOut = '[Navbar] Log Out'
 }
 
 export class LoginAttempt implements Action {
@@ -23,7 +24,13 @@ export class LoginFailure implements Action {
 
   constructor(public payload: any) {}
 }
+export class LogOut implements Action {
+  readonly type = AuthActionTypes.LogOut;
+
+  constructor(public payload?: any) {}
+}
 
 export type AuthActions = LoginAttempt
   | LoginSuccess
-  | LoginFailure;
+  | LoginFailure
+  | LogOut;

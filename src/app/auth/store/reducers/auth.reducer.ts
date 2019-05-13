@@ -21,6 +21,30 @@ export function authReducer(
   action: AuthActions
 ): AuthState {
   switch (action.type) {
+    case AuthActionTypes.LoginAttempt: {
+      return {
+        ...state,
+        attemptingLogin: true
+      };
+    }
+    case AuthActionTypes.LoginSuccess: {
+      return {
+        attemptingLogin: false,
+        token: action.payload.token,
+        nameid: action.payload.nameid,
+        unique_name: action.payload.unique_name,
+        loggedIn: true
+      };
+    }
+    case AuthActionTypes.LoginFailure: {
+      return {
+        ...state,
+        attemptingLogin: false
+      };
+    }
+    case AuthActionTypes.LogOut: {
+      return initialAuthState;
+    }
     default:
       return state;
   }

@@ -9,15 +9,15 @@ import { AuthState, authReducer } from '../auth/store/reducers/auth.reducer';
 import { environment } from '../../environments/environment';
 import { ITodoState, todoReducer } from '../todo/store/reducers/todo.reducer';
 
-export interface State {
+export interface AppState {
   authState: AuthState;
   todoState: ITodoState;
 }
 
-export const reducers: ActionReducerMap<State> = {
+export const reducers: ActionReducerMap<AppState> = {
   authState: authReducer,
   todoState: todoReducer
 };
 
 
-export const metaReducers: MetaReducer<State>[] = !environment.production ? [] : [];
+export const metaReducers: MetaReducer<AppState>[] = !environment.production ? [] : [];

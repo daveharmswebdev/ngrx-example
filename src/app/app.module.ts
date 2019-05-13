@@ -10,6 +10,9 @@ import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CustomMaterialModule } from './core/material.module';
+import { AuthModule } from './auth/auth.module';
+import { TodoModule } from './todo/todo.module';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -18,11 +21,14 @@ import { CustomMaterialModule } from './core/material.module';
   ],
   imports: [
     BrowserModule,
+    AuthModule,
+    TodoModule,
     AppRoutingModule,
     StoreModule.forRoot(reducers, { metaReducers }),
+    EffectsModule.forRoot([]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     BrowserAnimationsModule,
-    CustomMaterialModule
+    CustomMaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -10,7 +10,7 @@ import { TodoHomeComponent } from './todo-home/todo-home.component';
   declarations: [TodoHomeComponent],
   imports: [
     CommonModule,
-    StoreModule.forFeature('todo', fromTodo.todoReducer),
+    StoreModule.forFeature('todoState', fromTodo.todoReducer),
     EffectsModule.forFeature([TodoEffects])
   ]
 })
