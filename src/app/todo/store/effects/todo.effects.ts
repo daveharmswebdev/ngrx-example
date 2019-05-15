@@ -1,23 +1,32 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
-import { concatMap } from 'rxjs/operators';
-import { EMPTY } from 'rxjs';
-import { TodoActionTypes, TodoActions } from '../actions/todo.actions';
+import { map, switchMap, catchError, withLatestFrom } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { TodoActionTypes, TodoActions, LoadTodos, LoadTodosSuccess, LoadTodosFailure } from '../actions/todo.actions';
+import { TodoService } from '../../todo.service';
+import { AppState } from 'src/app/reducers';
+import { Store, select } from '@ngrx/store';
+import { selectNameId } from 'src/app/auth/store/auth.selectors';
 
 
 @Injectable()
 export class TodoEffects {
 
+  constructor(
+    private actions$: Actions<TodoActions>,
+    private todoService: TodoService,
+    private store: Store<AppState>
+  ) {}
 
   @Effect()
   loadTodos$ = this.actions$.pipe(
-    ofType(TodoActionTypes.LoadTodos),
-    /** An EMPTY observable only emits completion. Replace with your own observable API request */
-    concatMap(() => EMPTY)
+    ofType<LoadTodos>(TodoActionTypes.LoadTodos),
+    withLatestFrom(this.store.pipe(select(selectNameId))),
+    switchMap(([_, nameId]) => this.todoService.getTodos(nameId).pipe(
+      map(todos => new LoadTodosSuccess({todos})),
+      catchError(error => of(new LoadTodosFailure(error)))
+    ))
   );
-
-
-  constructor(private actions$: Actions<TodoActions>) {}
 
 }

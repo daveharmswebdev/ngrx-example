@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { AppState } from 'src/app/reducers';
+import { Store, select } from '@ngrx/store';
+import { LoadTodos } from '../store/actions/todo.actions';
+import { TodoService } from '../todo.service';
+import { Observable } from 'rxjs';
+import { ITodo } from '../todo.models';
+import { selectTodos } from '../store/todo.selectors';
 
 @Component({
   selector: 'app-todo-home',
@@ -6,10 +13,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./todo-home.component.scss']
 })
 export class TodoHomeComponent implements OnInit {
+  public todos$: Observable<ITodo[]>;
 
-  constructor() { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
+    this.store.dispatch(new LoadTodos());
+
+    this.todos$ = this.store.pipe(select(selectTodos));
+    this.todos$.subscribe(console.log);
   }
 
 }

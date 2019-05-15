@@ -1,17 +1,19 @@
 <div class="todo-container">
   <h4>Todos</h4>
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>1: Buy Milk</mat-card-title>
-    </mat-card-header>
+  <mat-card *ngFor="let todo of todos$ | async">
     <mat-card-content>
+      <div class="title">
+        <span>{{todo.id}}:</span>{{todo.title}}
+      </div>
       <p>
-        Boudin shank jowl alcatra
+        {{todo.description}}
       </p>
     </mat-card-content>
     <mat-card-footer>
-      <span>Morse</span>
-      <span>False</span>
+      <span>Owner: {{todo.owner}}</span>
+      <button 
+        mat-raised-button 
+        color="{{ todo.complete ? 'primary' : 'accent' }}">{{ todo.complete ? 'Complete' : 'Undo'}}</button>
     </mat-card-footer>
   </mat-card>
 </div>

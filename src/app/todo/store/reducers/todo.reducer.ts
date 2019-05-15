@@ -11,6 +11,9 @@ export const initialTodoState: ITodoState = todoAdapter.getInitialState();
 
 export function todoReducer(state = initialTodoState, action: TodoActions): ITodoState {
   switch (action.type) {
+    case TodoActionTypes.LoadTodosSuccess: {
+      return todoAdapter.addAll(action.payload.todos, state);
+    }
     case TodoActionTypes.AddTodo: {
       const todo = {
         ...action.payload.todo,
@@ -18,10 +21,6 @@ export function todoReducer(state = initialTodoState, action: TodoActions): ITod
       };
       return todoAdapter.addOne(todo, state);
     }
-
-    case TodoActionTypes.LoadTodos:
-      return state;
-
     default:
       return state;
   }

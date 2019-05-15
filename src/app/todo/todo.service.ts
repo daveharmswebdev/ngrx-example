@@ -8,7 +8,7 @@ const TEST_TODOS: ITodo[] = [
     title: 'Buy milk',
     description: 'Corned beef salami capicola beef',
     owner: 'Morse',
-    complete: false
+    complete: true
   },
   {
     id: '2',
@@ -33,8 +33,8 @@ export class TodoService {
 
   constructor() { }
 
-  getTodos(): Observable<ITodo[]> {
-
+  getTodos(id: string): Observable<ITodo[]> {
+    console.log('id', id);
     return of(TEST_TODOS);
 
   }

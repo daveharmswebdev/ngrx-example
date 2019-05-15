@@ -14,6 +14,11 @@ export const selectLoggedIn = createSelector(
   fromAuth.getLoggedIn
 );
 
+export const selectNameId = createSelector(
+  selectAuthState,
+  fromAuth.getNameId
+);
+
 export const selectAttemptingLogin = createSelector(
   selectAuthState,
   fromAuth.getAttemptingLogin

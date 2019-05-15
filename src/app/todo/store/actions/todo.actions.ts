@@ -3,15 +3,15 @@ import { ITodo } from '../../todo.models';
 
 export enum TodoActionTypes {
   LoadTodos = '[Todo] Load Todos',
-  LoadTodosFailure = '[Todo] Load Todos',
-  LoadTodosSuccess = '[Todo] Load Todos',
+  LoadTodosSuccess = '[Todo] Load Todos Success',
+  LoadTodosFailure = '[Todo] Load Todos Failure',
   AddTodo = '[Todo] Add Todo'
 }
 
 export class LoadTodos implements Action {
   readonly type = TodoActionTypes.LoadTodos;
 
-  constructor(public payload: { user: string}) {}
+  constructor(public payload?: any) {}
 }
 
 export class LoadTodosSuccess implements Action {
@@ -21,7 +21,7 @@ export class LoadTodosSuccess implements Action {
 }
 
 export class LoadTodosFailure implements Action {
-  readonly type = TodoActionTypes.LoadTodosSuccess;
+  readonly type = TodoActionTypes.LoadTodosFailure;
 
   constructor(public payload: { error: any }) {}
 }
