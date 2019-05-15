@@ -1,0 +1,16 @@
+.todo-container {
+  padding: 1rem 1rem;
+  mat-card {
+    width: 50%;
+    max-width: 20rem;
+  }
+  mat-card-footer {
+    height: 3rem;
+    display: flex;
+    justify-content: space-between;
+    span {
+      width: 50%;
+      text-align: center;
+    }
+  }
+}

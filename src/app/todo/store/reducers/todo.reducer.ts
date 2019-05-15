@@ -1,13 +1,7 @@
 import { createEntityAdapter, EntityState, EntityAdapter } from '@ngrx/entity';
-
+import { v4 as uuid } from 'uuid';
 import { TodoActions, TodoActionTypes } from '../actions/todo.actions';
-
-export interface ITodo {
-  id: string;
-  description: string;
-  owner: string;
-  complete: boolean;
-}
+import { ITodo } from '../../todo.models';
 
 export interface ITodoState extends EntityState<ITodo> {}
 
@@ -17,6 +11,13 @@ export const initialTodoState: ITodoState = todoAdapter.getInitialState();
 
 export function todoReducer(state = initialTodoState, action: TodoActions): ITodoState {
   switch (action.type) {
+    case TodoActionTypes.AddTodo: {
+      const todo = {
+        ...action.payload.todo,
+        id: uuid()
+      };
+      return todoAdapter.addOne(todo, state);
+    }
 
     case TodoActionTypes.LoadTodos:
       return state;
@@ -25,3 +26,12 @@ export function todoReducer(state = initialTodoState, action: TodoActions): ITod
       return state;
   }
 }
+
+const {
+  selectIds,
+  selectEntities,
+  selectAll,
+  selectTotal
+} = todoAdapter.getSelectors();
+
+export const getAllTodos = selectAll;
