@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { ITodo } from './todo.models';
+import { Update } from '@ngrx/entity';
 
 const TEST_TODOS: ITodo[] = [
   {
@@ -34,9 +35,14 @@ export class TodoService {
   constructor() { }
 
   getTodos(id: string): Observable<ITodo[]> {
-    console.log('id', id);
     return of(TEST_TODOS);
+  }
 
+  updateTodo(update: Update<ITodo>): Observable<ITodo> {
+    const { id, changes } = update;
+    const todoToUpdate = TEST_TODOS.find(todo => todo.id === id);
+
+    return of({...todoToUpdate, ...changes});
   }
 }
 

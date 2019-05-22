@@ -14,6 +14,9 @@ export function todoReducer(state = initialTodoState, action: TodoActions): ITod
     case TodoActionTypes.LoadTodosSuccess: {
       return todoAdapter.addAll(action.payload.todos, state);
     }
+    case TodoActionTypes.UpdateTodoSuccess: {
+      return todoAdapter.updateOne(action.payload, state);
+    }
     case TodoActionTypes.AddTodo: {
       const todo = {
         ...action.payload.todo,

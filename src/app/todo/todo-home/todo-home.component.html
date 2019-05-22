@@ -12,8 +12,9 @@
     <mat-card-footer>
       <span>Owner: {{todo.owner}}</span>
       <button 
+        (click)="toggleComplete(todo)"
         mat-raised-button 
-        color="{{ todo.complete ? 'primary' : 'accent' }}">{{ todo.complete ? 'Complete' : 'Undo'}}</button>
+        color="{{ todo.complete ? 'accent' : 'primary' }}">{{ todo.complete ? 'Undo' : 'Complete'}}</button>
     </mat-card-footer>
   </mat-card>
 </div>
