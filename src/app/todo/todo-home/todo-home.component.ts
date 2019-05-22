@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AppState } from 'src/app/reducers';
+import { AppState } from '../../reducers';
 import { Store, select } from '@ngrx/store';
 import { LoadTodos } from '../store/actions/todo.actions';
-import { TodoService } from '../todo.service';
 import { Observable } from 'rxjs';
 import { ITodo } from '../todo.models';
 import { selectTodos } from '../store/todo.selectors';
@@ -21,7 +20,6 @@ export class TodoHomeComponent implements OnInit {
     this.store.dispatch(new LoadTodos());
 
     this.todos$ = this.store.pipe(select(selectTodos));
-    this.todos$.subscribe(console.log);
   }
 
 }

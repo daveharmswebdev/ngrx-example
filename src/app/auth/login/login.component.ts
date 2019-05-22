@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AppState } from 'src/app/reducers';
+import { AppState } from '../../../app/reducers';
 import { Store, select } from '@ngrx/store';
 import { LoginAttempt } from '../store/actions/auth.actions';
 import { selectLoggedIn, selectAttemptingLogin } from '../store/auth.selectors';

@@ -5,9 +5,9 @@ import { map, switchMap, catchError, withLatestFrom } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { TodoActionTypes, TodoActions, LoadTodos, LoadTodosSuccess, LoadTodosFailure } from '../actions/todo.actions';
 import { TodoService } from '../../todo.service';
-import { AppState } from 'src/app/reducers';
+import { AppState } from '../../../../app/reducers';
 import { Store, select } from '@ngrx/store';
-import { selectNameId } from 'src/app/auth/store/auth.selectors';
+import { selectNameId } from '../../../../app/auth/store/auth.selectors';
 
 
 @Injectable()
