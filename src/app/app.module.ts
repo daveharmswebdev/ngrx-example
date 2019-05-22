@@ -13,6 +13,7 @@ import { CustomMaterialModule } from './core/material.module';
 import { AuthModule } from './auth/auth.module';
 import { TodoModule } from './todo/todo.module';
 import { EffectsModule } from '@ngrx/effects';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { EffectsModule } from '@ngrx/effects';
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     BrowserAnimationsModule,
     CustomMaterialModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

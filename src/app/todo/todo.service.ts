@@ -41,8 +41,11 @@ export class TodoService {
   updateTodo(update: Update<ITodo>): Observable<ITodo> {
     const { id, changes } = update;
     const todoToUpdate = TEST_TODOS.find(todo => todo.id === id);
+    const index = TEST_TODOS.findIndex(todo => todo.id === id);
+    const newTodo = {...todoToUpdate, ...changes};
+    TEST_TODOS[index] = newTodo;
 
-    return of({...todoToUpdate, ...changes});
+    return of(newTodo);
   }
 }
 

@@ -5,6 +5,7 @@ import { LoadTodos, UpdateTodo } from '../store/actions/todo.actions';
 import { Observable } from 'rxjs';
 import { ITodo } from '../todo.models';
 import { selectTodos } from '../store/todo.selectors';
+import { CustomDialogService } from 'src/app/shared/custom-dialog.service';
 
 @Component({
   selector: 'app-todo-home',
@@ -14,7 +15,10 @@ import { selectTodos } from '../store/todo.selectors';
 export class TodoHomeComponent implements OnInit {
   public todos$: Observable<ITodo[]>;
 
-  constructor(private store: Store<AppState>) { }
+  constructor(
+    private store: Store<AppState>,
+    private dialogService: CustomDialogService
+  ) { }
 
   ngOnInit() {
     this.store.dispatch(new LoadTodos());
@@ -24,6 +28,15 @@ export class TodoHomeComponent implements OnInit {
 
   toggleComplete({id, complete}: ITodo) {
     this.store.dispatch(new UpdateTodo({ id, changes: { complete: !complete}}));
+  }
+
+  editTodo(todo) {
+    this.dialogService.editTodo(todo).subscribe(
+      (result: ITodo) => this.store.dispatch(new UpdateTodo({
+        id: result.id,
+        changes: result
+      })),
+    );
   }
 
 }

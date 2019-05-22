@@ -1,0 +1,18 @@
+<form class="edit-container" [formGroup]="editForm">
+  <mat-form-field>
+    <input matInput placeholder="Title" formControlName="title">
+  </mat-form-field>
+
+  <mat-form-field>
+    <textarea matInput placeholder="Description" formControlName="description"></textarea>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Complete" formControlName="complete">
+      <mat-option [value]="true" >Complete</mat-option>
+      <mat-option [value]="false" >Todo</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button (click)="submit()">Submit</button>
+</form>
