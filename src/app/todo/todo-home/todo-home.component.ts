@@ -5,7 +5,7 @@ import { LoadTodos, UpdateTodo } from '../store/actions/todo.actions';
 import { Observable } from 'rxjs';
 import { ITodo } from '../todo.models';
 import { selectTodos } from '../store/todo.selectors';
-import { CustomDialogService } from 'src/app/shared/custom-dialog.service';
+import { CustomDialogService } from '../../../app/shared/custom-dialog.service';
 
 @Component({
   selector: 'app-todo-home',

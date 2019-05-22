@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { ITodo } from 'src/app/todo/todo.models';
+import { ITodo } from '../../../../app/todo/todo.models';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
