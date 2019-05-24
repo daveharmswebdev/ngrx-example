@@ -24,6 +24,9 @@ export function todoReducer(state = initialTodoState, action: TodoActions): ITod
       };
       return todoAdapter.addOne(todo, state);
     }
+    case TodoActionTypes.DeleteTodo: {
+      return todoAdapter.removeOne(action.payload.id, state);
+    }
     default:
       return state;
   }

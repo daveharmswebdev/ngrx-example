@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { ITodo } from './todo.models';
 import { Update } from '@ngrx/entity';
 
-const TEST_TODOS: ITodo[] = [
+let TEST_TODOS: ITodo[] = [
   {
     id: '1',
     title: 'Buy milk',
@@ -14,7 +14,8 @@ const TEST_TODOS: ITodo[] = [
   {
     id: '2',
     title: 'mow lawn',
-    description:  'Short loin brisket picanha tail spare ribs tri-tip short ribs tongue turkey beef',
+    description:
+      'Short loin brisket picanha tail spare ribs tri-tip short ribs tongue turkey beef',
     owner: 'Morse',
     complete: false
   },
@@ -31,8 +32,7 @@ const TEST_TODOS: ITodo[] = [
   providedIn: 'root'
 })
 export class TodoService {
-
-  constructor() { }
+  constructor() {}
 
   getTodos(id: string): Observable<ITodo[]> {
     return of(TEST_TODOS);
@@ -42,11 +42,21 @@ export class TodoService {
     const { id, changes } = update;
     const todoToUpdate = TEST_TODOS.find(todo => todo.id === id);
     const index = TEST_TODOS.findIndex(todo => todo.id === id);
-    const newTodo = {...todoToUpdate, ...changes};
+    const newTodo = { ...todoToUpdate, ...changes };
     TEST_TODOS[index] = newTodo;
 
     return of(newTodo);
   }
+
+  addTodo(todo: ITodo) {
+    TEST_TODOS.push(todo);
+
+    return of({ success: true, payload: todo });
+  }
+
+  removeTodo(id: string) {
+    TEST_TODOS = TEST_TODOS.filter(todo => todo.id !== id);
+
+    return of({ success: true, payload: id });
+  }
 }
-
-

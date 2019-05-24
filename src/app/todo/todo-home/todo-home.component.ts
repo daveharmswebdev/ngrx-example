@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppState } from '../../reducers';
 import { Store, select } from '@ngrx/store';
-import { LoadTodos, UpdateTodo } from '../store/actions/todo.actions';
+import { LoadTodos, UpdateTodo, DeleteTodo } from '../store/actions/todo.actions';
 import { Observable } from 'rxjs';
 import { ITodo } from '../todo.models';
 import { selectTodos } from '../store/todo.selectors';
@@ -39,4 +39,8 @@ export class TodoHomeComponent implements OnInit {
     );
   }
 
+  deleteTodo(todo) {
+    console.log('component', todo, todo.id);
+    this.store.dispatch(new DeleteTodo({ id: todo.id }));
+  }
 }

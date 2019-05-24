@@ -15,6 +15,11 @@
         (click)="toggleComplete(todo)"
         mat-raised-button 
         color="{{ todo.complete ? 'accent' : 'primary' }}">{{ todo.complete ? 'Undo' : 'Complete'}}</button>
+      <button
+        (click)="deleteTodo(todo)"
+        mat-raised-button
+        color="warning"
+      >Delete</button>
     </mat-card-footer>
   </mat-card>
 </div>

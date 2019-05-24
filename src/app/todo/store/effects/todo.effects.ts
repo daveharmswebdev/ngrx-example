@@ -11,7 +11,12 @@ import {
   LoadTodosFailure,
   UpdateTodo,
   UpdateTodoSuccess,
-  UpdateTodoError
+  UpdateTodoFailure,
+  AddTodo,
+  AddTodoSuccess,
+  DeleteTodo,
+  DeleteTodoSuccess,
+  DeleteTodoFailure
 } from '../actions/todo.actions';
 import { TodoService } from '../../todo.service';
 import { AppState } from '../../../../app/reducers';
@@ -42,12 +47,34 @@ export class TodoEffects {
   @Effect()
   updateTodo$ = this.actions$.pipe(
     ofType<UpdateTodo>(TodoActionTypes.UpdateTodo),
-    switchMap(update =>
-      this.todoService.updateTodo(update.payload).pipe(
+    switchMap(action =>
+      this.todoService.updateTodo(action.payload).pipe(
         map(
           (todo: ITodo) => new UpdateTodoSuccess({ id: todo.id, changes: todo })
         ),
-        catchError(error => of(new UpdateTodoError(error)))
+        catchError(error => of(new UpdateTodoFailure(error)))
+      )
+    )
+  );
+
+  @Effect()
+  addTodo$ = this.actions$.pipe(
+    ofType<AddTodo>(TodoActionTypes.AddTodo),
+    switchMap(action =>
+      this.todoService.addTodo(action.payload.todo).pipe(
+        map(addition => new AddTodoSuccess({ todo: addition.payload })),
+        catchError(error => of(new UpdateTodoFailure(error)))
+      )
+    )
+  );
+
+  @Effect()
+  deleteTodo$ = this.actions$.pipe(
+    ofType<DeleteTodo>(TodoActionTypes.DeleteTodo),
+    switchMap(action =>
+      this.todoService.removeTodo(action.payload.id).pipe(
+        map(result => new DeleteTodoSuccess({ id: result.payload })),
+        catchError(error => of(new DeleteTodoFailure(error)))
       )
     )
   );

@@ -7,9 +7,14 @@ export enum TodoActionTypes {
   LoadTodosSuccess = '[Todo] Load Todos Success',
   LoadTodosFailure = '[Todo] Load Todos Failure',
   AddTodo = '[Todo] Add Todo',
+  AddTodoSuccess = '[Todo] Add Todo Success',
+  AddTodoFailure = '[Todo] Add Todo Failure',
+  DeleteTodo = '[Todo] Delete Todo',
+  DeleteTodoSuccess = '[Todo] Delete Todo Success',
+  DeleteTodoFailure = '[Todo] Delete Todo Failure',
   UpdateTodo = '[Todo Home] Update Todo',
   UpdateTodoSuccess = '[Todo Home] Update Todo Success',
-  UpdateTodoError = '[Todo Home] Update Todo Error',
+  UpdateTodoFailure = '[Todo Home] Update Todo Failure'
 }
 
 export class LoadTodos implements Action {
@@ -21,7 +26,7 @@ export class LoadTodos implements Action {
 export class LoadTodosSuccess implements Action {
   readonly type = TodoActionTypes.LoadTodosSuccess;
 
-  constructor(public payload: { todos: ITodo[]}) {}
+  constructor(public payload: { todos: ITodo[] }) {}
 }
 
 export class LoadTodosFailure implements Action {
@@ -36,6 +41,37 @@ export class AddTodo implements Action {
   constructor(public payload: { todo: ITodo }) {}
 }
 
+export class AddTodoSuccess implements Action {
+  readonly type = TodoActionTypes.AddTodoSuccess;
+
+  constructor(public payload: { todo: ITodo }) {}
+}
+
+export class AddTodoFailure implements Action {
+  readonly type = TodoActionTypes.AddTodoFailure;
+
+  constructor(public payload: { error: any }) {}
+}
+
+export class DeleteTodo implements Action {
+  readonly type = TodoActionTypes.DeleteTodo;
+
+  constructor(public payload: { id: string }) {}
+}
+
+export class DeleteTodoSuccess implements Action {
+  readonly type = TodoActionTypes.DeleteTodoSuccess;
+
+  constructor(public payload: { id: string }) {}
+}
+
+export class DeleteTodoFailure implements Action {
+  readonly type = TodoActionTypes.DeleteTodoFailure;
+
+  constructor(public payload: { error: any }) {}
+}
+
+
 export class UpdateTodo implements Action {
   readonly type = TodoActionTypes.UpdateTodo;
 
@@ -48,16 +84,22 @@ export class UpdateTodoSuccess implements Action {
   constructor(public payload: Update<ITodo>) {}
 }
 
-export class UpdateTodoError implements Action {
-  readonly type = TodoActionTypes.UpdateTodoError;
+export class UpdateTodoFailure implements Action {
+  readonly type = TodoActionTypes.UpdateTodoFailure;
 
-  constructor(public payload: Update<ITodo>) {}
+  constructor(public payload: { error: any }) {}
 }
 
-export type TodoActions = LoadTodos
+export type TodoActions =
+  | LoadTodos
   | LoadTodosSuccess
   | LoadTodosFailure
   | AddTodo
+  | AddTodoSuccess
+  | AddTodoFailure
+  | DeleteTodo
+  | DeleteTodoSuccess
+  | DeleteTodoFailure
   | UpdateTodo
   | UpdateTodoSuccess
-  | UpdateTodoError;
+  | UpdateTodoFailure;
