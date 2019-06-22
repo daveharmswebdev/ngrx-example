@@ -14,16 +14,18 @@ import { AuthModule } from './auth/auth.module';
 import { TodoModule } from './todo/todo.module';
 import { EffectsModule } from '@ngrx/effects';
 import { SharedModule } from './shared/shared.module';
+import { RandomImageModule } from './random-image/random-image.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
     AuthModule,
     TodoModule,
+    RandomImageModule,
     AppRoutingModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot([]),
