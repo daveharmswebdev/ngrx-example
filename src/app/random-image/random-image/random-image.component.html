@@ -5,14 +5,15 @@
   <mat-card-content>
     <div class="button-container">
       <button mat-fab color="primary" (click)="increaseSpeed()">+</button>
-      <button mat-fab color="warn" (clikc)="decreaseSpeed()">-</button>
+      <button mat-fab color="warn" (click)="decreaseSpeed()">-</button>
     </div>
     <div class="speed-display">
       <mat-card>
         <h3>
-          Speed: 4
+          Speed: {{speed$ | async}}
         </h3>
       </mat-card>
     </div>
   </mat-card-content>
+  <mat-card-footer>{{count}}</mat-card-footer>
 </mat-card>
