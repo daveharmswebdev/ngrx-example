@@ -15,5 +15,15 @@
       </mat-card>
     </div>
   </mat-card-content>
-  <mat-card-footer>{{count}}</mat-card-footer>
+  <mat-card-footer>
+    <div>
+      {{count}}
+    </div>
+    <div>
+      <app-photo
+        [photo]="photo$ | async"
+      >
+      </app-photo>
+    </div>
+  </mat-card-footer>
 </mat-card>

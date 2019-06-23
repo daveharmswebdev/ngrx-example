@@ -1,0 +1,6 @@
+<mat-card *ngIf="photo">
+  <mat-card-header><h3>{{photo?.title}}</h3></mat-card-header>
+  <img mat-card-image [src]="photo?.url" alt="random image #{{photo.id}}">
+</mat-card>
+
+

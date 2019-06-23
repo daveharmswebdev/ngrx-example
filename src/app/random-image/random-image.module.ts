@@ -8,9 +8,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { RandomImageService } from './random-image.service';
 import { EffectsModule } from '@ngrx/effects';
 import { RandomImageEffects } from './store/random-image.effects';
+import { PhotoComponent } from './photo/photo.component';
 
 @NgModule({
-  declarations: [RandomImageComponent],
+  declarations: [RandomImageComponent, PhotoComponent],
   imports: [
     CommonModule,
     CustomMaterialModule,

@@ -2,10 +2,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { IncreaseSpeed, DecreaseSpeed, FetchImage } from '../store/random-images.actions';
 import { Observable, Subscription, interval, of } from 'rxjs';
-import { selectSpeed } from '../store/random-image.selectors';
+import { selectSpeed, selectPhoto } from '../store/random-image.selectors';
 import { AppState } from 'src/app/reducers';
 import { RandomImageService } from '../random-image.service';
 import { switchMap } from 'rxjs/operators';
+import { IPhoto } from '../store/random-image.reducer';
 
 @Component({
   selector: 'app-random-image',
@@ -14,21 +15,21 @@ import { switchMap } from 'rxjs/operators';
 })
 export class RandomImageComponent implements OnInit, OnDestroy {
   public speed$: Observable<number>;
+  public photo$: Observable<IPhoto>;
   private speedSubscription: Subscription;
   public count = 0;
 
-  constructor(private store: Store<AppState>, private service: RandomImageService) { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
     this.speed$ = this.store.pipe(select(selectSpeed));
-    this.service.getImage(this.randomNumber()).subscribe(image => console.log(image));
+    this.photo$ = this.store.pipe(select(selectPhoto));
 
     this.speedSubscription = this.speed$.pipe(
       switchMap(speed => speed !== 0 ? interval(speed * 1000) : of())
     ).subscribe(() => {
       this.count++;
       if (this.count % 2 === 0) {
-        console.log('call a new image');
         this.store.dispatch(new FetchImage(this.randomNumber()));
       }
     });
@@ -47,7 +48,7 @@ export class RandomImageComponent implements OnInit, OnDestroy {
   }
 
   randomNumber() {
-    const randomNumber = Math.floor(Math.random() * 100);
+    const randomNumber = Math.floor(Math.random() * 100) + 1;
     return randomNumber;
   }
 
