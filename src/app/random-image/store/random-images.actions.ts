@@ -24,7 +24,7 @@ export class DecreaseSpeed implements Action {
 export class FetchImage implements Action {
   readonly type = RandomImageActionsTypes.FetchImage;
 
-  constructor(public payload?: any) {}
+  constructor(public payload: number) {}
 }
 
 export class FetchImageSuccess implements Action {

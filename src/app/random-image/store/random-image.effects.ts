@@ -18,7 +18,7 @@ export class RandomImageEffects {
   fetchImage$: Observable<Action> = this.actions$.pipe(
     ofType<FetchImage>(RandomImageActionsTypes.FetchImage),
     switchMap(action => {
-      return this.randomImageService.getImage().pipe(
+      return this.randomImageService.getImage(action.payload).pipe(
         map(image => new FetchImageSuccess(image)),
         catchError(error => of(new FetchImageFailure(error)))
       );

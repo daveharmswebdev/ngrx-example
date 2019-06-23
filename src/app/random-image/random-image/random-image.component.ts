@@ -5,7 +5,7 @@ import { Observable, Subscription, interval, of } from 'rxjs';
 import { selectSpeed } from '../store/random-image.selectors';
 import { AppState } from 'src/app/reducers';
 import { RandomImageService } from '../random-image.service';
-import { tap, switchMap, filter, skip, skipWhile } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-random-image',
@@ -21,7 +21,7 @@ export class RandomImageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.speed$ = this.store.pipe(select(selectSpeed));
-    this.service.getImage().subscribe(image => console.log(image));
+    this.service.getImage(this.randomNumber()).subscribe(image => console.log(image));
 
     this.speedSubscription = this.speed$.pipe(
       switchMap(speed => speed !== 0 ? interval(speed * 1000) : of())
@@ -29,7 +29,7 @@ export class RandomImageComponent implements OnInit, OnDestroy {
       this.count++;
       if (this.count % 2 === 0) {
         console.log('call a new image');
-        this.store.dispatch(new FetchImage());
+        this.store.dispatch(new FetchImage(this.randomNumber()));
       }
     });
   }
@@ -44,6 +44,11 @@ export class RandomImageComponent implements OnInit, OnDestroy {
 
   decreaseSpeed() {
     this.store.dispatch(new DecreaseSpeed());
+  }
+
+  randomNumber() {
+    const randomNumber = Math.floor(Math.random() * 100);
+    return randomNumber;
   }
 
 }

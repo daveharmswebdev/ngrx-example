@@ -9,8 +9,8 @@ export class RandomImageService {
 
   constructor(private http: HttpClient) {}
 
-  getImage(): Observable<IPhoto> {
-    return this.http.get<IPhoto>('https://jsonplaceholder.typicode.com/photos/2');
+  getImage(number): Observable<IPhoto> {
+    return this.http.get<IPhoto>(`https://jsonplaceholder.typicode.com/photos/${number}`);
   }
 
 }

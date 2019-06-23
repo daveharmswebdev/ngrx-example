@@ -8,3 +8,8 @@ export const selectSpeed = createSelector(
   selectRandomImageState,
   fromRandomImage.getSpeed
 );
+
+export const selectPhoto = createSelector(
+  selectRandomImageState,
+  fromRandomImage.getPhoto
+);

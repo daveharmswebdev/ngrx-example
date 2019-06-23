@@ -57,3 +57,4 @@ export function randomImageReducer(
 }
 
 export const getSpeed = (state: IRandomImageState) => state.speed;
+export const getPhoto = (state: IRandomImageState) => state.photo;
