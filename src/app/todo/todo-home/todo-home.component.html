@@ -13,7 +13,7 @@
       </p>
     </mat-card-content>
     <mat-card-footer>
-      <span>Owner: {{todo.owner}}</span>
+      <span>Owner: {{todo.owner | titlecase}}</span>
       <button
         (click)="toggleComplete(todo)"
         mat-raised-button

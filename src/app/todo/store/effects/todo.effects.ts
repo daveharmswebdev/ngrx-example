@@ -21,7 +21,7 @@ import {
 import { TodoService } from '../../todo.service';
 import { AppState } from '../../../../app/reducers';
 import { Store, select } from '@ngrx/store';
-import { selectNameId } from '../../../../app/auth/store/auth.selectors';
+import { selectNameId, selectUniqueName } from '../../../../app/auth/store/auth.selectors';
 import { ITodo } from '../../todo.models';
 
 @Injectable()
@@ -60,11 +60,17 @@ export class TodoEffects {
   @Effect()
   addTodo$ = this.actions$.pipe(
     ofType<AddTodo>(TodoActionTypes.AddTodo),
-    switchMap(action =>
-      this.todoService.addTodo(action.payload.todo).pipe(
+    withLatestFrom(this.store.pipe(select(selectUniqueName))),
+    switchMap(([action, name]) => {
+      const todoToAdd: ITodo = {
+        ...action.payload.todo,
+        owner: name
+      };
+      return this.todoService.addTodo(todoToAdd).pipe(
         map(addition => new AddTodoSuccess({ todo: addition.payload })),
         catchError(error => of(new UpdateTodoFailure(error)))
-      )
+      );
+    }
     )
   );
 

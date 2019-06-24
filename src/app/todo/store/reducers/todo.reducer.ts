@@ -16,7 +16,7 @@ export function todoReducer(state = initialTodoState, action: TodoActions): ITod
     case TodoActionTypes.UpdateTodoSuccess: {
       return todoAdapter.updateOne(action.payload, state);
     }
-    case TodoActionTypes.AddTodo: {
+    case TodoActionTypes.AddTodoSuccess: {
       return todoAdapter.addOne(action.payload.todo, state);
     }
     case TodoActionTypes.DeleteTodo: {
@@ -35,3 +35,4 @@ const {
 } = todoAdapter.getSelectors();
 
 export const getAllTodos = selectAll;
+export const getTotal = selectTotal;
