@@ -1,4 +1,7 @@
-import { RandomImageActions, RandomImageActionsTypes } from './random-images.actions';
+import {
+  RandomImageActions,
+  RandomImageActionsTypes
+} from './random-images.actions';
 
 export interface IRandomImageState {
   speed: number;
@@ -40,11 +43,11 @@ export function randomImageReducer(
         ...state,
         fetchingFoto: true
       };
-      case RandomImageActionsTypes.FetchImageSuccess:
-        return {
-          ...state,
-          fetchingFoto: false,
-          photo: action.payload
+    case RandomImageActionsTypes.FetchImageSuccess:
+      return {
+        ...state,
+        fetchingFoto: false,
+        photo: action.payload
       };
     case RandomImageActionsTypes.FetchImageFailure:
       return {

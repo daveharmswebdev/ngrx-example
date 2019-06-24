@@ -1,11 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { IncreaseSpeed, DecreaseSpeed, FetchImage } from '../store/random-images.actions';
+import {
+  IncreaseSpeed,
+  DecreaseSpeed,
+  FetchImage
+} from '../store/random-images.actions';
 import { Observable, Subscription, interval, of } from 'rxjs';
 import { selectSpeed, selectPhoto } from '../store/random-image.selectors';
 import { AppState } from 'src/app/reducers';
 import { RandomImageService } from '../random-image.service';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, take } from 'rxjs/operators';
 import { IPhoto } from '../store/random-image.reducer';
 
 @Component({
@@ -19,20 +23,20 @@ export class RandomImageComponent implements OnInit, OnDestroy {
   private speedSubscription: Subscription;
   public count = 0;
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
     this.speed$ = this.store.pipe(select(selectSpeed));
     this.photo$ = this.store.pipe(select(selectPhoto));
 
-    this.speedSubscription = this.speed$.pipe(
-      switchMap(speed => speed !== 0 ? interval(speed * 1000) : of())
-    ).subscribe(() => {
-      this.count++;
-      if (this.count % 2 === 0) {
-        this.store.dispatch(new FetchImage(this.randomNumber()));
-      }
-    });
+    this.speedSubscription = this.speed$
+      .pipe(switchMap(speed => (speed !== 0 ? interval(speed * 1000) : of())))
+      .subscribe(() => {
+        this.count++;
+        if (this.count % 2 === 0) {
+          this.store.dispatch(new FetchImage(this.randomNumber()));
+        }
+      });
   }
 
   ngOnDestroy() {
@@ -51,5 +55,4 @@ export class RandomImageComponent implements OnInit, OnDestroy {
     const randomNumber = Math.floor(Math.random() * 100) + 1;
     return randomNumber;
   }
-
 }
