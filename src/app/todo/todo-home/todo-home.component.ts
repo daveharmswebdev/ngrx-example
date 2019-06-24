@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AppState } from '../../reducers';
 import { Store, select } from '@ngrx/store';
-import { LoadTodos, UpdateTodo, DeleteTodo } from '../store/actions/todo.actions';
+import { LoadTodos, UpdateTodo, DeleteTodo, AddTodo } from '../store/actions/todo.actions';
 import { Observable } from 'rxjs';
 import { ITodo } from '../todo.models';
 import { selectTodos } from '../store/todo.selectors';
 import { CustomDialogService } from '../../../app/shared/custom-dialog.service';
+import { v4 as uuid } from 'uuid';
+
 
 @Component({
   selector: 'app-todo-home',
@@ -36,6 +38,19 @@ export class TodoHomeComponent implements OnInit {
         id: result.id,
         changes: result
       })),
+    );
+  }
+
+  addTodo() {
+    const todo: ITodo = {
+      id: uuid(),
+      title: '',
+      description: '',
+      owner: '',
+      complete: false
+    };
+    this.dialogService.editTodo(todo).subscribe(
+      (result: ITodo) => this.store.dispatch(new AddTodo({todo: result}))
     );
   }
 

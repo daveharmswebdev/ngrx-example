@@ -1,5 +1,8 @@
 <div class="todo-container">
-  <h4>Todos</h4>
+  <div class="controls">
+    <h4>Todos</h4>
+    <button mat-fab color="primary" (click)="addTodo(null)">+</button>
+  </div>
   <mat-card *ngFor="let todo of todos$ | async">
     <mat-card-content>
       <div class="title">
@@ -11,9 +14,9 @@
     </mat-card-content>
     <mat-card-footer>
       <span>Owner: {{todo.owner}}</span>
-      <button 
+      <button
         (click)="toggleComplete(todo)"
-        mat-raised-button 
+        mat-raised-button
         color="{{ todo.complete ? 'accent' : 'primary' }}">{{ todo.complete ? 'Undo' : 'Complete'}}</button>
       <button
         (click)="deleteTodo(todo)"

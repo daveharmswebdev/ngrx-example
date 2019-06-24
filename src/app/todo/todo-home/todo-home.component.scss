@@ -1,5 +1,11 @@
 .todo-container {
   padding: 1rem 1rem;
+  .controls {
+    height: 5rem;
+    width: 8rem;
+    display: flex;
+    justify-content: space-between;
+  }
   mat-card {
     width: 50%;
     max-width: 20rem;

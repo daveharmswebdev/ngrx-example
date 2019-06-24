@@ -1,5 +1,4 @@
 import { createEntityAdapter, EntityState, EntityAdapter } from '@ngrx/entity';
-import { v4 as uuid } from 'uuid';
 import { TodoActions, TodoActionTypes } from '../actions/todo.actions';
 import { ITodo } from '../../todo.models';
 
@@ -18,11 +17,7 @@ export function todoReducer(state = initialTodoState, action: TodoActions): ITod
       return todoAdapter.updateOne(action.payload, state);
     }
     case TodoActionTypes.AddTodo: {
-      const todo = {
-        ...action.payload.todo,
-        id: uuid()
-      };
-      return todoAdapter.addOne(todo, state);
+      return todoAdapter.addOne(action.payload.todo, state);
     }
     case TodoActionTypes.DeleteTodo: {
       return todoAdapter.removeOne(action.payload.id, state);
