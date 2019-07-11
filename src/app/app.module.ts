@@ -15,6 +15,7 @@ import { TodoModule } from './todo/todo.module';
 import { EffectsModule } from '@ngrx/effects';
 import { SharedModule } from './shared/shared.module';
 import { RandomImageModule } from './random-image/random-image.module';
+import { PostsModule } from './posts/posts.module';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { RandomImageModule } from './random-image/random-image.module';
     AuthModule,
     TodoModule,
     RandomImageModule,
+    PostsModule,
     AppRoutingModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot([]),

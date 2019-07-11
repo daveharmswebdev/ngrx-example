@@ -24,7 +24,7 @@ export const initialRandomImageState: IRandomImageState = {
 };
 
 export function randomImageReducer(
-  state = initialRandomImageState,
+  state: IRandomImageState = initialRandomImageState,
   action: RandomImageActions
 ): IRandomImageState {
   switch (action.type) {
